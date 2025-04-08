@@ -55,6 +55,67 @@
                   </llm>
                 </llm>
               </chat>
+              <chat>
+                <internalId value="63664c4b-7894-4a99-bc8f-61f27d91f77f" />
+                <llm>
+                  <llm>
+                    <model value="anthropic/claude-3-5-sonnet-20240620" />
+                    <provider value="Anthropic" />
+                    <tags>
+                      <list>
+                        <option value="gateway" />
+                        <option value="accuracy" />
+                        <option value="recommended" />
+                        <option value="free" />
+                      </list>
+                    </tags>
+                    <title value="Claude 3.5 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
+                  </llm>
+                </llm>
+              </chat>
+              <chat>
+                <internalId value="a60e948c-48ce-4292-a16a-7abf66a5c3ac" />
+                <llm>
+                  <llm>
+                    <model value="anthropic/claude-3-5-sonnet-20240620" />
+                    <provider value="Anthropic" />
+                    <tags>
+                      <list>
+                        <option value="gateway" />
+                        <option value="accuracy" />
+                        <option value="recommended" />
+                        <option value="free" />
+                      </list>
+                    </tags>
+                    <title value="Claude 3.5 Sonnet" />
+                    <usage>
+                      <list>
+                        <option value="chat" />
+                        <option value="edit" />
+                      </list>
+                    </usage>
+                  </llm>
+                </llm>
+                <messages>
+                  <list>
+                    <message>
+                      <speaker value="HUMAN" />
+                      <text value="napisz do pliku readme.md &#10;&#10;prosty przykład spisu tresci i zapisz" />
+                    </message>
+                    <message>
+                      <speaker value="ASSISTANT" />
+                      <text value="Certainly! I'll create a simple example of a table of contents for a README.md file and provide you with the content to save. Here's a basic template:&#10;&#10;```markdown&#10;# Project Name&#10;&#10;## Table of Contents&#10;1. [Introduction](#introduction)&#10;2. [Installation](#installation)&#10;3. [Usage](#usage)&#10;4. [Features](#features)&#10;5. [Contributing](#contributing)&#10;6. [License](#license)&#10;&#10;## Introduction&#10;Brief description of your project.&#10;&#10;## Installation&#10;Steps to install your project.&#10;&#10;## Usage&#10;How to use your project.&#10;&#10;## Features&#10;List of key features.&#10;&#10;## Contributing&#10;Guidelines for contributing to your project.&#10;&#10;## License&#10;Information about the project's license.&#10;```&#10;&#10;You can save this content to your README.md file. This structure provides a clear and organized overview of your project, making it easy for users to navigate and find the information they need. Feel free to customize the sections and add more details as needed for your specific project." />
+                    </message>
+                  </list>
+                </messages>
+                <updatedAt value="2025-04-08T15:32:26.90632075" />
+              </chat>
             </list>
           </chats>
           <defaultLlm>
