@@ -1,0 +1,224 @@
+task:
+Proszę wyświetlić wszystkie zamówienia, w których liczba zamówionych produktów jest większa
+niż średnia liczba produktów zamówionych we wszystkich zamówieniach.
+
+"Please display all orders in which the number of ordered products is greater than the average
+number of products ordered across all orders."
+
+desciption from user(me) with example of tables and filled data what should be manipualted by sql query to get result
+with examples and ask chatgpt to explain each steps of query and how data from columnts are manipulate in each step to
+achieve proper result and proper query.
+Ofc advanced person can write it by himself but i want to show how I can use chatgpt to get proper query and
+that I am able to understand it and more complex, advanced queries in future.
+
+
+
+
+This stage show how SQL offer desired solution with divide into steps of query and explain each step.
+
+-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
+
+[ChatGPT]
+Rozumiem, że zapytanie w zadaniu 6 może wydawać się trudne, ponieważ wymaga kilku kroków do obliczenia średniej liczby produktów na zamówienie i porównania jej z liczbą produktów w każdym zamówieniu. Postaram się rozbić to na etapy i przejść przez każdy z nich krok po kroku, abyś mógł zrozumieć, jak zbudować to zapytanie.
+Zadanie:
+
+    Proszę wyświetlić wszystkie zamówienia, w których liczba zamówionych produktów jest większa niż średnia liczba produktów zamówionych we wszystkich zamówieniach.
+
+Krok 1: Zrozumienie danych
+
+Na początek warto wiedzieć, jak wygląda struktura tabel, z których będziemy korzystać. W tym zadaniu będziemy potrzebować tabel takich jak:
+
+    Zamówienia (zawiera informacje o każdym zamówieniu),
+
+    Produkty (zawiera informacje o produktach),
+
+    Zamówienia_Produkty (tabela łącząca zamówienia z produktami, która zawiera także liczbę zamówionych produktów w danym zamówieniu).
+
+Załóżmy, że tabela Zamówienia_Produkty ma kolumny takie jak:
+
+    zamowienie_id — identyfikator zamówienia,
+
+    produkt_id — identyfikator produktu,
+
+    ilosc — liczba zamówionych jednostek danego produktu.
+
+Krok 2: Obliczanie łącznej liczby produktów w zamówieniu
+
+Zacznijmy od obliczenia, ile produktów znajduje się w każdym zamówieniu. Aby to zrobić, musimy zgrupować dane po zamowienie_id i zsumować liczbę zamówionych produktów. W tym celu użyjemy funkcji agregującej SUM().
+
+SELECT zamowienie_id, SUM(ilosc) AS liczba_produktow
+FROM zamowienia_produkty
+GROUP BY zamowienie_id;
+
+Ten fragment zapytania oblicza łączną liczbę zamówionych produktów w każdym zamówieniu. Wartość liczba_produktow to suma kolumny ilosc w ramach tego samego zamówienia.
+Krok 3: Obliczanie średniej liczby zamówionych produktów
+
+Aby porównać liczbę produktów w każdym zamówieniu z średnią liczbą produktów zamówionych we wszystkich zamówieniach, musimy obliczyć średnią. Aby to zrobić, możemy użyć funkcji agregującej AVG() na tej samej tabeli zamowienia_produkty.
+
+SELECT AVG(ilosc) AS srednia_liczba_produktow
+FROM zamowienia_produkty;
+
+Ten fragment zapytania oblicza średnią liczbę zamówionych produktów we wszystkich zamówieniach. Pamiętaj, że w tym przypadku średnia będzie obliczona na poziomie pojedynczego produktu w zamówieniu.
+Krok 4: Porównanie liczby produktów w zamówieniu ze średnią
+
+Teraz połączymy oba zapytania, aby porównać liczbę produktów w każdym zamówieniu z średnią. Aby to zrobić, możemy użyć podzapytania w klauzuli WHERE, które porówna sumę produktów w zamówieniu z obliczoną średnią.
+
+SELECT zamowienie_id, SUM(ilosc) AS liczba_produktow
+FROM zamowienia_produkty
+GROUP BY zamowienie_id
+HAVING SUM(ilosc) > (
+    SELECT AVG(ilosc)
+    FROM zamowienia_produkty
+);
+
+Wyjaśnienie:
+
+    Podzapytanie w HAVING: Podzapytanie w klauzuli HAVING oblicza średnią liczbę zamówionych produktów we wszystkich zamówieniach. Wartość ta jest porównywana z sumą ilosc w każdym zamówieniu.
+
+    HAVING zamiast WHERE: Używamy klauzuli HAVING zamiast WHERE, ponieważ operujemy na wynikach agregacji (suma produktów w zamówieniu). HAVING jest używane do filtrowania po agregacjach, podczas gdy WHERE działa przed agregacją.
+
+    GROUP BY zamowienie_id: Grupujemy dane po zamowienie_id, aby dla każdego zamówienia policzyć sumę zamówionych produktów.
+
+Krok 5: Finalne zapytanie
+
+Ostateczne zapytanie, które spełnia wszystkie wymagania zadania, wygląda tak:
+
+SELECT zamowienie_id, SUM(ilosc) AS liczba_produktow
+FROM zamowienia_produkty
+GROUP BY zamowienie_id
+HAVING SUM(ilosc) > (
+    SELECT AVG(ilosc)
+    FROM zamowienia_produkty
+);
+
+Co się dzieje w zapytaniu?
+
+    SUM(ilosc): Zliczamy liczbę zamówionych produktów w każdym zamówieniu.
+
+    AVG(ilosc): Obliczamy średnią liczbę zamówionych produktów we wszystkich zamówieniach.
+
+    HAVING: Porównujemy sumę zamówionych produktów z średnią, aby wybrać tylko te zamówienia, które mają liczbę produktów większą niż średnia.
+
+Podsumowanie:
+
+    Krok 1: Obliczamy sumę produktów w każdym zamówieniu.
+
+    Krok 2: Obliczamy średnią liczbę produktów zamówionych we wszystkich zamówieniach.
+
+    Krok 3: Porównujemy sumę produktów w zamówieniu z obliczoną średnią.
+
+Mam nadzieję, że teraz jest to bardziej zrozumiałe! Jeśli masz jakiekolwiek pytania dotyczące tego zapytania lub jakiegokolwiek etapu, śmiało pytaj!
+
+-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
+Now when I understand how query works and answer for question and deliery solution
+I decided to show chatgpt as desciption data from rows in excel program and then split each operation into steps
+Now chatgpt transform tables from excel, show each clause from sql works and what do with data. It can help even person
+who doesnt understand sql to see how data transform and how to achieve correct result.
+
+My next question and sample data input to chatgpt:
+
+[ME] Insane that he created structure of sample data from my description and he was 100% correct and query result
+is same as I did in excel manually use all steps what he described in previous message
+
+-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
+
+
+Tak, zapytanie powinno działać dokładnie w taki sposób, jak opisujesz! Aby zobrazować cały proces, przejdźmy przez to krok po kroku, zaczynając od przykładowych danych w tabelach, a potem zobaczymy, jakie wyniki generuje zapytanie.
+Tabele z przykładowymi danymi
+Tabela 1: zamowienia
+id_zamowienia
+1
+2
+3
+4
+Tabela 2: zamowienia_produkty
+id_zamowienia	produkt_id	ilosc
+1	1	1
+1	2	1
+1	3	1
+2	1	5
+2	2	5
+3	3	11
+4	2	11
+4	3	11
+4	4	11
+4	5	11
+4	1	3
+Krok 1: Obliczanie łącznej liczby produktów w zamówieniu
+
+W pierwszym kroku chcemy policzyć, ile produktów zostało zamówionych w każdym zamówieniu, niezależnie od produktu. Robimy to za pomocą sumowania ilosc w tabeli zamowienia_produkty, grupując dane po id_zamowienia.
+
+Zapytanie:
+
+SELECT id_zamowienia, SUM(ilosc) AS liczba_produktow
+FROM zamowienia_produkty
+GROUP BY id_zamowienia;
+
+Wynik:
+id_zamowienia	liczba_produktow
+1	3
+2	10
+3	11
+4	47
+Krok 2: Obliczanie średniej liczby produktów w zamówieniu
+
+W kolejnym kroku musimy obliczyć średnią liczbę produktów zamówionych we wszystkich zamówieniach. Używamy funkcji AVG() na kolumnie ilosc z tabeli zamowienia_produkty.
+
+Zapytanie:
+
+SELECT AVG(ilosc) AS srednia_liczba_produktow
+FROM zamowienia_produkty;
+
+Wynik:
+srednia_liczba_produktow
+6.4
+Krok 3: Porównanie liczby zamówionych produktów z średnią
+
+Teraz połączymy oba kroki w jedno zapytanie, aby porównać liczbę zamówionych produktów w każdym zamówieniu z obliczoną średnią. Użyjemy podzapytania w klauzuli HAVING, które obliczy średnią liczbę zamówionych produktów, a następnie porówna ją z liczbą produktów w zamówieniu.
+
+Zapytanie:
+
+SELECT id_zamowienia, SUM(ilosc) AS liczba_produktow
+FROM zamowienia_produkty
+GROUP BY id_zamowienia
+HAVING SUM(ilosc) > (
+    SELECT AVG(ilosc)
+    FROM zamowienia_produkty
+);
+
+Wynik:
+id_zamowienia	liczba_produktow
+2	10
+3	11
+4	47
+Wyjaśnienie wyników:
+
+    Zamówienie 1: 3 produkty. Ponieważ średnia wynosi 6,4, zamówienie 1 nie spełnia warunku, ponieważ ma mniej niż średnią liczbę produktów.
+
+    Zamówienie 2: 10 produktów. Ponieważ 10 > 6,4, zamówienie 2 spełnia warunek.
+
+    Zamówienie 3: 11 produktów. Ponieważ 11 > 6,4, zamówienie 3 spełnia warunek.
+
+    Zamówienie 4: 47 produktów. Ponieważ 47 > 6,4, zamówienie 4 spełnia warunek.
+
+Podsumowanie:
+
+    Zapytanie działa w sposób, który rozumiesz — dla każdego zamówienia obliczamy sumę zamówionych produktów. Następnie porównujemy tę sumę z obliczoną średnią liczbą produktów w zamówieniu we wszystkich zamówieniach.
+
+    Zamówienia, których liczba zamówionych produktów jest większa od średniej, są zwracane przez zapytanie.
+
+    W przykładowych danych, zapytanie zwróci zamówienia 2, 3 i 4, ponieważ mają one liczbę produktów większą niż średnia 6,4.
+
+Jeśli chcesz, mogę pomóc Ci stworzyć dane w tabeli na Twoim systemie i przetestować to zapytanie!
+-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------

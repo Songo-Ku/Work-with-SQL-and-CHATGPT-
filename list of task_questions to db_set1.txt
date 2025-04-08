@@ -1,0 +1,71 @@
+1. Proszę wyświetlić imiona i nazwiska pracowników, którzy pracują w dziale, który znajduje się w budynku o nazwie 'Budynek A'.
+Użyj INNER JOIN między tabelami Pracownicy i Działy.
+
+
+2. Znajdź wszystkie produkty, których cena jest wyższa niż średnia cena produktów w danej kategorii.
+Użyj podzapytania w klauzuli WHERE, aby porównać cenę produktu z średnią ceną w danej kategorii.
+
+
+3. Wyświetl listę pracowników, którzy nie mają żadnych przypisanych projektów.
+Użyj LEFT JOIN między tabelą Pracownicy i Projekty oraz warunku WHERE z NULL.
+
+
+4. Proszę wyświetlić imiona i nazwiska pracowników oraz nazwę projektu, nad którym aktualnie pracują, wraz z datą rozpoczęcia projektu.
+Użyj INNER JOIN między tabelami Pracownicy, Projekty, i Przypisania.
+
+
+5. Znajdź wszystkich pracowników, którzy mają wyższe wynagrodzenie niż średnia pensja w ich dziale.
+Użyj podzapytania w WHERE do obliczenia średniego wynagrodzenia w dziale i porównaj je z wynagrodzeniem pracownika.
+
+
+6. Proszę wyświetlić wszystkie zamówienia, w których liczba zamówionych produktów jest większa niż średnia liczba produktów zamówionych we wszystkich zamówieniach.
+Użyj podzapytania do obliczenia średniej liczby produktów w zamówieniach i porównaj je z liczbą produktów w każdym zamówieniu.
+
+
+7. Wyświetl wszystkie produkty, które zostały zamówione przez co najmniej dwóch różnych klientów.
+Użyj INNER JOIN między tabelami Produkty, Zamówienia, i Klienci, a następnie zastosuj grupowanie z HAVING COUNT(DISTINCT Klienci.ID).
+
+
+8. Proszę znaleźć wszystkich klientów, którzy złożyli zamówienie na produkt o nazwie "Laptop", ale nie złożyli zamówienia na produkt "Smartphone".
+Użyj podzapytań w WHERE i NOT EXISTS w celu sprawdzenia zamówienia na produkty.
+
+
+9. Wyświetl nazwisko pracownika oraz nazwę jego bezpośredniego przełożonego, zakładając, że przełożeni są zapisani w tej samej tabeli co pracownicy.
+Użyj SELF JOIN (łączenie tabeli z samą sobą) na tabeli Pracownicy do odnalezienia przełożonych.
+
+
+10. Znajdź średnią liczbę zamówionych produktów na zamówienie w każdej kategorii produktu.
+Użyj INNER JOIN między tabelami Zamówienia, Produkty, i Kategorie oraz GROUP BY, aby obliczyć średnią liczbę produktów na zamówienie w każdej kategorii.
+
+
+
+
+1 Please display the first and last names of employees who work in a department located in the building named 'Building A'.
+Use an INNER JOIN between the Employees and Departments tables.
+
+2 Find all products whose price is higher than the average price of products in the same category.
+Use a subquery in the WHERE clause to compare the product price with the average price in its category.
+
+3 Display a list of employees who are not assigned to any projects.
+Use a LEFT JOIN between the Employees and Projects tables and a WHERE clause with NULL.
+
+4 Please display the first and last names of employees along with the name of the project they are currently working on and the project start date.
+Use an INNER JOIN between the Employees, Projects, and Assignments tables.
+
+5 Find all employees who earn a higher salary than the average salary in their department.
+Use a subquery in the WHERE clause to calculate the average salary in the department and compare it to the employee’s salary.
+
+6 Please display all orders in which the number of ordered products is greater than the average number of products ordered across all orders.
+Use a subquery to calculate the average number of products per order and compare it to the number in each order.
+
+7 Display all products that have been ordered by at least two different customers.
+Use an INNER JOIN between the Products, Orders, and Customers tables, and then apply GROUP BY with HAVING COUNT(DISTINCT Customers.ID).
+
+Please find all customers who have placed an order for the product named "Laptop" but have not placed an order for the product "Smartphone".
+Use subqueries in the WHERE clause and NOT EXISTS to check for product orders.
+
+Display the last name of an employee and the name of their direct supervisor, assuming supervisors are stored in the same table as employees.
+Use a SELF JOIN (joining the table with itself) on the Employees table to find supervisors.
+
+Find the average number of products ordered per order in each product category.
+Use an INNER JOIN between the Orders, Products, and Categories tables and GROUP BY to calculate the average number of products per order in each category.
