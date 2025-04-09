@@ -1,0 +1,47 @@
+1. Tabela pracownicy
+    id (INT, PK)
+    imie (VARCHAR)
+    nazwisko (VARCHAR)
+    dzial_id (INT, FK) - Odnosi się do identyfikatora działu w tabeli działy.
+    wynagrodzenie (DECIMAL)
+    przełożony_id (INT, FK) - Odnosi się do id w tej samej tabeli (self join).
+
+2. Tabela działy
+    dzial_id (INT, PK)
+    nazwa (VARCHAR)
+    budynek (VARCHAR)
+
+3. Tabela projekty
+    projekt_id (INT, PK)
+    nazwa (VARCHAR)
+    data_rozpoczecia (DATE)
+
+4. Tabela przypisania
+    id (INT, PK)
+    pracownik_id (INT, FK) - Odnosi się do tabeli pracownicy.
+    projekt_id (INT, FK) - Odnosi się do tabeli projekty.
+    data_przypisania (DATE)
+
+5. Tabela produkty
+    id (INT, PK)
+    nazwa (VARCHAR)
+    cena (DECIMAL)
+    kategoria_id (INT, FK) - Odnosi się do tabeli kategorie.
+
+6. Tabela zamówienia
+    id (INT, PK)
+    data_zamowienia (DATE)
+    klient_id (INT, FK) - Nowa kolumna! Odnosi się do tabeli klienci. To pozwala powiązać zamówienia z klientami.
+
+7. Tabela klienci
+    klient_id (INT, PK)
+    nazwa (VARCHAR)
+
+8. Tabela zamowienia_produkty
+    zamowienie_id (INT, FK) - Odnosi się do tabeli zamówienia.
+    produkt_id (INT, FK) - Odnosi się do tabeli produkty.
+    ilosc (INT)
+
+9. Tabela kategorie
+    kategoria_id (INT, PK)
+    nazwa (VARCHAR)

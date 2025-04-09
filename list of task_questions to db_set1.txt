@@ -61,11 +61,11 @@ Use a subquery to calculate the average number of products per order and compare
 7 Display all products that have been ordered by at least two different customers.
 Use an INNER JOIN between the Products, Orders, and Customers tables, and then apply GROUP BY with HAVING COUNT(DISTINCT Customers.ID).
 
-Please find all customers who have placed an order for the product named "Laptop" but have not placed an order for the product "Smartphone".
+8 Please find all customers who have placed an order for the product named "Laptop" but have not placed an order for the product "Smartphone".
 Use subqueries in the WHERE clause and NOT EXISTS to check for product orders.
 
-Display the last name of an employee and the name of their direct supervisor, assuming supervisors are stored in the same table as employees.
+9 Display the last name of an employee and the name of their direct supervisor, assuming supervisors are stored in the same table as employees.
 Use a SELF JOIN (joining the table with itself) on the Employees table to find supervisors.
 
-Find the average number of products ordered per order in each product category.
+10 Find the average number of products ordered per order in each product category.
 Use an INNER JOIN between the Orders, Products, and Categories tables and GROUP BY to calculate the average number of products per order in each category.
