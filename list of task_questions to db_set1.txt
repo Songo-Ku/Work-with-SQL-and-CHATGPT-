@@ -69,3 +69,8 @@ Use a SELF JOIN (joining the table with itself) on the Employees table to find s
 
 10 Find the average number of products ordered per order in each product category.
 Use an INNER JOIN between the Orders, Products, and Categories tables and GROUP BY to calculate the average number of products per order in each category.
+
+
+
+
+do testu git diff
