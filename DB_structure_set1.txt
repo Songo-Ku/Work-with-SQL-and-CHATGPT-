@@ -22,6 +22,8 @@
     projekt_id (INT, FK) - Odnosi się do tabeli projekty.
     data_przypisania (DATE)
 
+
+
 5. Tabela produkty
     id (INT, PK)
     nazwa (VARCHAR)
@@ -33,6 +35,7 @@
     data_zamowienia (DATE)
     klient_id (INT, FK) - Nowa kolumna! Odnosi się do tabeli klienci. To pozwala powiązać zamówienia z klientami.
 
+
 7. Tabela klienci
     klient_id (INT, PK)
     nazwa (VARCHAR)
@@ -41,6 +44,7 @@
     zamowienie_id (INT, FK) - Odnosi się do tabeli zamówienia.
     produkt_id (INT, FK) - Odnosi się do tabeli produkty.
     ilosc (INT)
+
 
 9. Tabela kategorie
     kategoria_id (INT, PK)

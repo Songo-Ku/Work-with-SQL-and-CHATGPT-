@@ -3,9 +3,8 @@
 ## Table of Contents
 1. [Introduction](#introduction)
 2. [Usage](#Usage)
-
-
-
+3. [CreateTable](#CreateTable)
+4. [WorkWithPython](#WorkWithPython)
 
 
 ## Introduction
@@ -40,3 +39,91 @@ Additionally I pasted case and story to question number 6 from set1 and show pro
 and generation sample data from only description to chagpt. It shows how effectively I can use AI agent
 to solve real problems and USE SQL on a daily basis.
 
+## CreateTable
+
+CREATE DATABASE firma_db;
+USE firma_db;
+
+
+-- Tabela działy
+CREATE TABLE dzialy (
+    dzial_id INT PRIMARY KEY AUTO_INCREMENT,
+    nazwa VARCHAR(100) NOT NULL,
+    budynek VARCHAR(50)
+);
+
+-- Tabela pracownicy
+CREATE TABLE pracownicy (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    imie VARCHAR(50) NOT NULL,
+    nazwisko VARCHAR(50) NOT NULL,
+    dzial_id INT,
+    wynagrodzenie DECIMAL(10,2),
+    przelozony_id INT,
+    FOREIGN KEY (dzial_id) REFERENCES dzialy(dzial_id),
+    FOREIGN KEY (przelozony_id) REFERENCES pracownicy(id)
+);
+
+-- Tabela projekty
+CREATE TABLE projekty (
+    projekt_id INT PRIMARY KEY AUTO_INCREMENT,
+    nazwa VARCHAR(100) NOT NULL,
+    data_rozpoczecia DATE
+);
+
+-- Tabela przypisania
+CREATE TABLE przypisania (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    pracownik_id INT,
+    projekt_id INT,
+    data_przypisania DATE,
+    FOREIGN KEY (pracownik_id) REFERENCES pracownicy(id),
+    FOREIGN KEY (projekt_id) REFERENCES projekty(projekt_id)
+);
+
+-- Tabela kategorie
+CREATE TABLE kategorie (
+    kategoria_id INT PRIMARY KEY AUTO_INCREMENT,
+    nazwa VARCHAR(100) NOT NULL
+);
+
+-- Tabela produkty
+CREATE TABLE produkty (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nazwa VARCHAR(100) NOT NULL,
+    cena DECIMAL(10,2),
+    kategoria_id INT,
+    FOREIGN KEY (kategoria_id) REFERENCES kategorie(kategoria_id)
+);
+
+-- Tabela klienci
+CREATE TABLE klienci (
+    klient_id INT PRIMARY KEY AUTO_INCREMENT,
+    nazwa VARCHAR(100) NOT NULL
+);
+
+-- Tabela zamówienia
+CREATE TABLE zamowienia (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    data_zamowienia DATE,
+    klient_id INT,
+    FOREIGN KEY (klient_id) REFERENCES klienci(klient_id)
+);
+
+-- Tabela zamowienia_produkty
+CREATE TABLE zamowienia_produkty (
+    zamowienie_id INT,
+    produkt_id INT,
+    ilosc INT,
+    PRIMARY KEY (zamowienie_id, produkt_id),
+    FOREIGN KEY (zamowienie_id) REFERENCES zamowienia(id),
+    FOREIGN KEY (produkt_id) REFERENCES produkty(id)
+);
+
+## WorkWithPython
+via pycharm add venv
+activate venv:
+.venv\Scripts\activate
+pip install -r requirements.txt
+run script:
+generate_data_to_tables.py
