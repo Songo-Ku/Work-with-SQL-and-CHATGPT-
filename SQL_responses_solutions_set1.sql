@@ -62,20 +62,22 @@ where p.wynagrodzenie > (
 --Use a subquery to calculate the average number of products per order and
 --compare it to the number in each order.
 
-
-select z.zamowienie_id, z.data_zamowienia
+select z.id, z.data_zamowienia
 from zamowienia as z
-where z.zamowienie_id in (
-    select zam.zamowienie_id,
-        count(zam.produkt_id) as liczba_produktow,
-        avg(zam.ilosc) as srednia_liczba_produktow
-      from zamowienia_produkty as zam
-      group by zam.zamowienie_id
-      having sum(zam.ilosc) > (
-        select avg(sub_zam.ilosc)
-        from zamowienia_produkty as sub_zam
-      )
-);
+where z.id in (
+    select zp.zamowienie_id
+    from zamowienia_produkty as zp
+    group by zp.zamowienie_id
+    having count(zp.produkt_id) >  (
+        select avg(liczba_produktow_per_order) as srednia_liczba_produktow
+        from (
+            Select  sub_zp.zamowienie_id,
+                    count(distinct sub_zp.produkt_id) as liczba_produktow_per_order
+            from zamowienia_produkty as sub_zp
+            group by sub_zp.zamowienie_id
+        ) as produkty_na_zamowienie
+    )
+)
 --------------------------------------------------------------------------------------------------
 --7 Wyświetl wszystkie produkty, które zostały zamówione przez co najmniej
 --dwóch różnych klientów.
@@ -102,7 +104,7 @@ having count(distinct kli.id) >= 2;
 --"Laptop" but have not placed an order for the product "Smartphone".
 --Use subqueries in the WHERE clause and NOT EXISTS to check for product orders.
 
-the best solution I found is with usage of CTE common table expression and it divide into 3 queries one query.
+--the best solution I found is with usage of CTE common table expression and it divide into 3 queries one query.
 WITH laptop_zamowienia AS (
     SELECT DISTINCT zamowienie_id
     FROM zamowienia_produkty
@@ -122,17 +124,7 @@ INNER JOIN zamowienia_produkty AS zp ON z.zamowienie_id = zp.zamowienie_id
 WHERE zp.zamowienie_id IN (SELECT zamowienie_id FROM laptop_zamowienia)
   AND zp.zamowienie_id NOT IN (SELECT zamowienie_id FROM smartphone_zamowienia);
 
--- in case of huge data set in db it is highly recommended to use other solution more efficient, productive and faster.
-SELECT k.nazwa
-FROM klienci AS k
-INNER JOIN zamówienia AS z ON k.klient_id = z.klient_id
-INNER JOIN zamowienia_produkty AS zp ON z.zamowienie_id = zp.zamowienie_id
-INNER JOIN produkty AS p ON zp.produkt_id = p.produkt_id
-LEFT JOIN zamowienia_produkty AS zp2 ON zp2.zamowienie_id = z.zamowienie_id
-LEFT JOIN produkty AS p2 ON zp2.produkt_id = p2.produkt_id AND p2.nazwa = 'Smartphone'
-WHERE p.nazwa = 'Laptop'
-AND p2.produkt_id IS NULL
-GROUP BY k.nazwa;
+
 --------------------------------------------------------------------------------------------------
 
 --9. Wyświetl nazwisko pracownika oraz nazwę jego bezpośredniego przełożonego,
@@ -165,6 +157,15 @@ inner join pracownicy as p2
     on p1.przelozony_id = p2.przelozony_id
     and p1.dzial_id != p2.dzial_id
 
+-- bez duplikatów a,b; b,a
+select p1.nazwisko, p1.przelozony_id as przelozony_1, p2.przelozony_id as przelozony_2,
+p1.nazwisko as nazwisko1, p2.nazwisko as nazwisko2
+from pracownicy as p1
+inner join pracownicy as p2
+on p1.przelozony_id = p2.przelozony_id
+and p1.dzial_id != p2.dzial_id
+and p1.id < p2.id  -- warunek eliminujacy duplikaty
+
 
 SELECT p1.imie AS pracownik_imie, p1.nazwisko AS pracownik_nazwisko,
        p2.imie AS inny_pracownik_imie, p2.nazwisko AS inny_pracownik_nazwisko,
@@ -183,3 +184,27 @@ ORDER BY p1.nazwisko, p2.nazwisko;
 --and GROUP BY to calculate the average number of products per
 --order in each category.
 
+
+
+
+
+
+
+
+
+
+
+
+
+--after analysis this query for 8. is wrong because it show only records in 1
+--order so for only 1 order per user limitation it would be correct
+SELECT k.nazwa
+FROM klienci AS k
+INNER JOIN zamówienia AS z ON k.klient_id = z.klient_id
+INNER JOIN zamowienia_produkty AS zp ON z.zamowienie_id = zp.zamowienie_id
+INNER JOIN produkty AS p ON zp.produkt_id = p.produkt_id
+LEFT JOIN zamowienia_produkty AS zp2 ON zp2.zamowienie_id = z.zamowienie_id
+LEFT JOIN produkty AS p2 ON zp2.produkt_id = p2.produkt_id AND p2.nazwa = 'Smartphone'
+WHERE p.nazwa = 'Laptop'
+AND p2.produkt_id IS NULL
+GROUP BY k.nazwa;

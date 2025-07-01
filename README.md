@@ -159,7 +159,8 @@ SHOW GRANTS FOR 'app_user'@'localhost';
 
 
 ## ValidationGenData
-
+check number of records in each table
+```sql
 SELECT 'dzialy' as tabela, COUNT(*) as liczba_rekordow FROM dzialy
 UNION ALL
 SELECT 'pracownicy', COUNT(*) FROM pracownicy
@@ -177,7 +178,7 @@ UNION ALL
 SELECT 'zamowienia', COUNT(*) FROM zamowienia
 UNION ALL
 SELECT 'zamowienia_produkty', COUNT(*) FROM zamowienia_produkty;
-
+```
 
 OUTPUT from CMD mysqlsh connected to db:
 +---------------------+-----------------+
@@ -193,3 +194,18 @@ OUTPUT from CMD mysqlsh connected to db:
 | zamowienia          |             300 |
 | zamowienia_produkty |             300 |
 +---------------------+-----------------+
+
+
+-- check first 5 records in each table
+```sql
+SELECT * FROM dzialy LIMIT 5;
+SELECT * FROM pracownicy LIMIT 5;
+SELECT * FROM projekty LIMIT 5;
+SELECT * FROM przypisania LIMIT 5;
+SELECT * FROM kategorie LIMIT 5;
+SELECT * FROM produkty LIMIT 5;
+SELECT * FROM klienci LIMIT 5;
+SELECT * FROM zamowienia LIMIT 5;
+SELECT * FROM zamowienia_produkty LIMIT 5;
+```
+

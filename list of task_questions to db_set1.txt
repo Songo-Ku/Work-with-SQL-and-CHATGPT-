@@ -21,20 +21,33 @@ Użyj podzapytania w WHERE do obliczenia średniego wynagrodzenia w dziale i por
 6. Proszę wyświetlić wszystkie zamówienia, w których liczba zamówionych produktów jest większa niż średnia liczba produktów zamówionych we wszystkich zamówieniach.
 Użyj podzapytania do obliczenia średniej liczby produktów w zamówieniach i porównaj je z liczbą produktów w każdym zamówieniu.
 
+6A. dodatkowo wyświetl sume ilosci produktów w zamówieniu nie zmieniajac strategii z where
+6B. uzyj inner joina zamiast subquery w where.
 
-7. Wyświetl wszystkie produkty, które zostały zamówione przez co najmniej dwóch różnych klientów.
-Użyj INNER JOIN między tabelami Produkty, Zamówienia, i Klienci, a następnie zastosuj grupowanie z HAVING COUNT(DISTINCT Klienci.ID).
+
+7. Wyświetl wszystkie produkty, które zostały zamówione przez
+co najmniej dwóch różnych klientów.
+Użyj INNER JOIN między tabelami Produkty, Zamówienia, i Klienci,
+a następnie zastosuj grupowanie z HAVING COUNT(DISTINCT Klienci.ID).
+
+--Display all products that have been ordered by at least
+two different customers.
+--Use an INNER JOIN between the Products, Orders, and Customers tables,
+--and then apply GROUP BY with HAVING COUNT(DISTINCT Customers.ID).
 
 
-8. Proszę znaleźć wszystkich klientów, którzy złożyli zamówienie na produkt o nazwie "Laptop", ale nie złożyli zamówienia na produkt "Smartphone".
+
+8. Proszę znaleźć wszystkich klientów, którzy złożyli zamówienie na produkt
+o nazwie "Laptop", ale nie złożyli zamówienia na produkt "Smartphone".
 Użyj podzapytań w WHERE i NOT EXISTS w celu sprawdzenia zamówienia na produkty.
 
 
-9. Wyświetl nazwisko pracownika oraz nazwę jego bezpośredniego przełożonego, zakładając, że przełożeni są zapisani w tej samej tabeli co pracownicy.
+9. Wyświetl nazwisko pracownika oraz nazwę jego bezpośredniego przełożonego,
+zakładając, że przełożeni są zapisani w tej samej tabeli co pracownicy.
 Użyj SELF JOIN (łączenie tabeli z samą sobą) na tabeli Pracownicy do odnalezienia przełożonych.
 
-
-10. Znajdź średnią liczbę zamówionych produktów na zamówienie w każdej kategorii produktu.
+10. Znajdź średnią liczbę zamówionych produktów na zamówienie
+w każdej kategorii produktu.
 Użyj INNER JOIN między tabelami Zamówienia, Produkty, i Kategorie oraz GROUP BY, aby obliczyć średnią liczbę produktów na zamówienie w każdej kategorii.
 
 

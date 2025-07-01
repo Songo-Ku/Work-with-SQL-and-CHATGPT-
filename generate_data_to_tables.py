@@ -2,6 +2,7 @@ import mysql.connector
 from faker import Faker
 import random
 from datetime import datetime, timedelta
+from utils_connection_to_db.connection import connect_to_db
 
 # Konfiguracja połączenia
 config = {
@@ -14,14 +15,14 @@ config = {
 fake = Faker('pl_PL')  # Polski faker
 
 
-def connect_to_db():
-    """Nawiązuje połączenie z bazą danych"""
-    try:
-        cnx = mysql.connector.connect(**config)
-        return cnx
-    except mysql.connector.Error as err:
-        print(f"Błąd połączenia: {err}")
-        return None
+# def connect_to_db(config):
+#     """Nawiązuje połączenie z bazą danych"""
+#     try:
+#         cnx = mysql.connector.connect(**config)
+#         return cnx
+#     except mysql.connector.Error as err:
+#         print(f"Błąd połączenia: {err}")
+#         return None
 
 
 def generate_dzialy(cursor, count=10):
@@ -175,7 +176,7 @@ def generate_zamowienia_produkty(cursor, count=300):
 
 def main():
     """Główna funkcja generująca wszystkie dane"""
-    cnx = connect_to_db()
+    cnx = connect_to_db(config)
     if not cnx:
         return
 

@@ -1,0 +1,4 @@
+mysql~=0.0.3
+mysql-connector-python~=9.3.0
+Faker~=37.4.0
+pandas~=2.3.0
